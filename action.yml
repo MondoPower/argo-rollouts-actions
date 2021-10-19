@@ -1,0 +1,19 @@
+name: MondoPower/argo-rollouts-actions
+author: MondoPower
+description: 'Setup argo rollouts kubectl plugin'
+inputs:
+  version:
+    description: 'A argocd username'
+    required: false
+    default: 'latest'
+    
+runs:
+  using: "composite"
+  steps:
+    - name: Setup argo rollouts plugin
+      id: setup-argo-rollouts
+      shell: bash
+      run: |
+        curl -sSL -o /tmp/kubectl-argo-rollouts https://github.com/argoproj/argo-rollouts/releases/${{ inputs.version }}/download/kubectl-argo-rollouts-linux-amd64
+        cp /tmp/kubectl-argo-rollouts /usr/local/bin/
+        chmod +x /usr/local/bin/kubectl-argo-rollouts
